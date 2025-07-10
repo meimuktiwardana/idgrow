@@ -1,0 +1,463 @@
+{
+    "info": {
+      "name": "Stock Management API",
+      "description": "Complete API collection for Stock Management System",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": [
+        {
+          "key": "token",
+          "value": "{{auth_token}}",
+          "type": "string"
+        }
+      ]
+    },
+    "variable": [
+      {
+        "key": "base_url",
+        "value": "http://localhost:8000/api",
+        "type": "string"
+      },
+      {
+        "key": "auth_token",
+        "value": "",
+        "type": "string"
+      }
+    ],
+    "item": [
+      {
+        "name": "Authentication",
+        "item": [
+          {
+            "name": "Login",
+            "request": {
+              "auth": {
+                "type": "noauth"
+              },
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"email\": \"admin@admin.com\",\n    \"password\": \"password\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/login",
+                "host": ["{{base_url}}"],
+                "path": ["login"]
+              }
+            },
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "exec": [
+                    "if (pm.response.code === 200) {",
+                    "    var jsonData = pm.response.json();",
+                    "    pm.environment.set('auth_token', jsonData.data.token);",
+                    "    pm.collectionVariables.set('auth_token', jsonData.data.token);",
+                    "}"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "name": "Logout",
+            "request": {
+              "method": "POST",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/logout",
+                "host": ["{{base_url}}"],
+                "path": ["logout"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Users",
+        "item": [
+          {
+            "name": "Get All Users",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/users",
+                "host": ["{{base_url}}"],
+                "path": ["users"]
+              }
+            }
+          },
+          {
+            "name": "Create User",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"nama\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/users",
+                "host": ["{{base_url}}"],
+                "path": ["users"]
+              }
+            }
+          },
+          {
+            "name": "Get User by ID",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/users/1",
+                "host": ["{{base_url}}"],
+                "path": ["users", "1"]
+              }
+            }
+          },
+          {
+            "name": "Update User",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"nama\": \"John Doe Updated\",\n    \"email\": \"john.updated@example.com\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/users/1",
+                "host": ["{{base_url}}"],
+                "path": ["users", "1"]
+              }
+            }
+          },
+          {
+            "name": "Delete User",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/users/1",
+                "host": ["{{base_url}}"],
+                "path": ["users", "1"]
+              }
+            }
+          },
+          {
+            "name": "Get User Mutation History",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/users/1/mutasi-history",
+                "host": ["{{base_url}}"],
+                "path": ["users", "1", "mutasi-history"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Products",
+        "item": [
+          {
+            "name": "Get All Products",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/produks",
+                "host": ["{{base_url}}"],
+                "path": ["produks"]
+              }
+            }
+          },
+          {
+            "name": "Create Product",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"kode_produk\": \"PRD003\",\n    \"nama_produk\": \"Keyboard Mechanical\",\n    \"kategori\": \"Electronics\",\n    \"satuan\": \"pcs\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/produks",
+                "host": ["{{base_url}}"],
+                "path": ["produks"]
+              }
+            }
+          },
+          {
+            "name": "Get Product by ID",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/produks/1",
+                "host": ["{{base_url}}"],
+                "path": ["produks", "1"]
+              }
+            }
+          },
+          {
+            "name": "Update Product",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"nama_produk\": \"Laptop Dell Updated\",\n    \"kategori\": \"Electronics\",\n    \"satuan\": \"pcs\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/produks/1",
+                "host": ["{{base_url}}"],
+                "path": ["produks", "1"]
+              }
+            }
+          },
+          {
+            "name": "Delete Product",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/produks/1",
+                "host": ["{{base_url}}"],
+                "path": ["produks", "1"]
+              }
+            }
+          },
+          {
+            "name": "Get Product Mutation History",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/produks/1/mutasi-history",
+                "host": ["{{base_url}}"],
+                "path": ["produks", "1", "mutasi-history"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Locations",
+        "item": [
+          {
+            "name": "Get All Locations",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/lokasis",
+                "host": ["{{base_url}}"],
+                "path": ["lokasis"]
+              }
+            }
+          },
+          {
+            "name": "Create Location",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"kode_lokasi\": \"WH003\",\n    \"nama_lokasi\": \"Warehouse Bandung\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/lokasis",
+                "host": ["{{base_url}}"],
+                "path": ["lokasis"]
+              }
+            }
+          },
+          {
+            "name": "Get Location by ID",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/lokasis/1",
+                "host": ["{{base_url}}"],
+                "path": ["lokasis", "1"]
+              }
+            }
+          },
+          {
+            "name": "Update Location",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"nama_lokasi\": \"Warehouse Jakarta Updated\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/lokasis/1",
+                "host": ["{{base_url}}"],
+                "path": ["lokasis", "1"]
+              }
+            }
+          },
+          {
+            "name": "Delete Location",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/lokasis/1",
+                "host": ["{{base_url}}"],
+                "path": ["lokasis", "1"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Mutations",
+        "item": [
+          {
+            "name": "Get All Mutations",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/mutasis",
+                "host": ["{{base_url}}"],
+                "path": ["mutasis"]
+              }
+            }
+          },
+          {
+            "name": "Create Mutation - Stock In",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"produk_id\": 1,\n    \"lokasi_id\": 1,\n    \"tanggal\": \"2024-01-15\",\n    \"jenis_mutasi\": \"masuk\",\n    \"jumlah\": 100,\n    \"keterangan\": \"Pembelian stock awal\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/mutasis",
+                "host": ["{{base_url}}"],
+                "path": ["mutasis"]
+              }
+            }
+          },
+          {
+            "name": "Create Mutation - Stock Out",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"produk_id\": 1,\n    \"lokasi_id\": 1,\n    \"tanggal\": \"2024-01-16\",\n    \"jenis_mutasi\": \"keluar\",\n    \"jumlah\": 10,\n    \"keterangan\": \"Penjualan ke customer\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/mutasis",
+                "host": ["{{base_url}}"],
+                "path": ["mutasis"]
+              }
+            }
+          },
+          {
+            "name": "Get Mutation by ID",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/mutasis/1",
+                "host": ["{{base_url}}"],
+                "path": ["mutasis", "1"]
+              }
+            }
+          },
+          {
+            "name": "Update Mutation",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"jumlah\": 150,\n    \"keterangan\": \"Pembelian stock awal - Updated\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/mutasis/1",
+                "host": ["{{base_url}}"],
+                "path": ["mutasis", "1"]
+              }
+            }
+          },
+          {
+            "name": "Delete Mutation",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "{{base_url}}/mutasis/1",
+                "host": ["{{base_url}}"],
+                "path": ["mutasis", "1"]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
