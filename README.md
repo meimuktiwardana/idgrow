@@ -1,3 +1,5 @@
+### Panduan Instalasi dan Menjalankan Proyek
+
 Teknologi yang Digunakan
 
     PHP 8.2+
@@ -7,8 +9,6 @@ Teknologi yang Digunakan
     MySQL
 
     Composer
-
-Panduan Instalasi dan Menjalankan Proyek
 
 ### Prasyarat
 
@@ -20,7 +20,7 @@ Panduan Instalasi dan Menjalankan Proyek
 
     Database Server seperti MySQL
 
-### 1. Instalasi Lokal
+### Instalasi Lokal
 
 Clone repository ini:
     
